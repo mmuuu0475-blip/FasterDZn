@@ -246,12 +246,29 @@
 
     let me = null;
     let activeChat = null;
-
-    // --- Google Auth ---
+// --- Google Auth ---
     function loginWithGoogle() {
         const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithRedirect(provider);
+        firebase.auth().signInWithRedirect(provider);
     }
+
+    // أضف هذا الجزء تحتها مباشرة للتأكد من استقبال بيانات المستخدم
+    firebase.auth().getRedirectResult().then((result) => {
+        if (result.user) {
+            console.log("تم الدخول بنجاح!");
+        }
+    }).catch((error) => {
+        console.error("خطأ في الدخول:", error.message);
+    });
+
+    // أضف هذا الجزء تحتها مباشرة للتأكد من استقبال بيانات المستخدم
+    firebase.auth().getRedirectResult().then((result) => {
+        if (result.user) {
+            console.log("تم الدخول بنجاح!");
+        }
+    }).catch((error) => {
+        console.error("خطأ في الدخول:", error.message);
+    });
 
     auth.onAuthStateChanged(async (user) => {
         if (user) {
